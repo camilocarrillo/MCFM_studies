@@ -1,9 +1,4 @@
-
 #!/bin/bash
-cd workspace
-source rootsetup.sh
-cd MCFM-6.6/Bin
-
 for i in {1089..1089};
 do
   cp background.DAT background"_"$i.DAT
