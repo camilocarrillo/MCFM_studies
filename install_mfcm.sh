@@ -162,4 +162,3 @@ get_package ()
 }
 
 main "$@"
-
