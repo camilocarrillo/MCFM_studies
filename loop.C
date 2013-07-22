@@ -22,10 +22,11 @@ void loop(){
   t1->SetBranchAddress("px4",&px4);
   t1->SetBranchAddress("py4",&py4);
   t1->SetBranchAddress("pz4",&pz4);
-  t1->SetBranchAddress("E4",&E3);
+  t1->SetBranchAddress("E4",&E4);
   t1->SetBranchAddress("px5",&px5);
   t1->SetBranchAddress("py5",&py5);
   t1->SetBranchAddress("pz5",&pz5);
+  t1->SetBranchAddress("E5",&E5);
 
   //read all entries and fill the histograms
 
