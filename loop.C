@@ -58,12 +58,12 @@ void loop(){
   //  for (Int_t i=0; i<nentries; i++) {
   for (Int_t i=0; i<1000000; i++) {
     t1->GetEntry(i);
-    TLorentzVector p3((Double_t) px3,(Double_t) py3,(Double_t) pz3,(Double_t) E3);
-    TLorentzVector p4((Double_t) px4,(Double_t) py4,(Double_t) pz4,(Double_t) E4);
-    TLorentzVector p5((Double_t) px5,(Double_t) py5,(Double_t) pz5,(Double_t) E5);
-    TLorentzVector pdi;
+    TLorentzVector p3((Double_t) px3,(Double_t) py3,(Double_t) pz3,(Double_t) E3); //lepton 1
+    TLorentzVector p4((Double_t) px4,(Double_t) py4,(Double_t) pz4,(Double_t) E4); //lepton 2
+    TLorentzVector p5((Double_t) px5,(Double_t) py5,(Double_t) pz5,(Double_t) E5); //gamma
+    TLorentzVector pdi; //dilepton
     pdi = p3+p4;
-    TLorentzVector pthree;
+    TLorentzVector pthree; //3-system
     pthree = pdi+p5;
     
     Float_t Delta_pt;
