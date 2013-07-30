@@ -5,7 +5,7 @@
 
 
 void loop(){
-  TFile *f = new TFile("../zgamma_prueba.root");
+  TFile *f = new TFile("../zeeg/zeeg_1089.root");
   TTree *t1 = (TTree*)f->Get("h300");
   mcfm readClass(t1);
   t1->ls();
@@ -52,7 +52,11 @@ void loop(){
   TH2F *h2_ptbalance = new TH2F("h2_ptbalance",";pt balance (GeV); 3 Body Mass(GeV)",200,-100,100,130,50,180);
 
   Int_t nentries = (Int_t)t1->GetEntries();
-  for (Int_t i=0; i<nentries; i++) {
+  
+  int events_passing_cuts=0;
+  
+  //  for (Int_t i=0; i<nentries; i++) {
+  for (Int_t i=0; i<1000000; i++) {
     t1->GetEntry(i);
     TLorentzVector p3((Double_t) px3,(Double_t) py3,(Double_t) pz3,(Double_t) E3);
     TLorentzVector p4((Double_t) px4,(Double_t) py4,(Double_t) pz4,(Double_t) E4);
@@ -76,7 +80,7 @@ void loop(){
       low = p3.Pt();
     }
 
-    //cout<<"entrada:"<<i<<endl;
+    cout<<"entrada:"<<i<<endl;
 
     if(low>7){
       if(high>25){
@@ -85,6 +89,7 @@ void loop(){
 	    if(fabs(Delta_pt)<10.0){
 	      if(p3.DeltaR(p4)<1.0) {
 		if(pdi.DeltaR(p5)>0.4){
+		  events_passing_cuts++;
 		  h_m_three_cut->Fill(pthree.Mag());
 		  h_m_dilep_cut->Fill(pdi.Mag());
 		  h_DeltaR_three_cut->Fill(pdi.DeltaR(p5));
@@ -106,6 +111,8 @@ void loop(){
     }
   }
 
+
+  cout<<"events_passing_cuts = "<<events_passing_cuts<<endl;
 
   TFile *Output_file_1 = new TFile("Output_z_back.root", "RECREATE");
   
