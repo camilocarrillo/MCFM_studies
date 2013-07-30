@@ -5,7 +5,9 @@
 
 
 void loop(){
-  TFile *f = new TFile("../zeeg/zeeg_1089.root");
+  //TFile *f = new TFile("../zeeg/zeeg_1089.root");
+  TFile *f = new TFile("../zeej/zeej_1132.root");
+  //TFile *f = new TFile("../signal.root");
   TTree *t1 = (TTree*)f->Get("h300");
   mcfm readClass(t1);
   t1->ls();
@@ -32,16 +34,12 @@ void loop(){
 
   TH1F *h_m_dilep =new TH1F("h_m_dilep",";Mass Dilep(GeV); Events",120,0,60);
   TH1F *h_m_dilep_cut =new TH1F("h_m_dilep_cut",";Mass Dilep(GeV); Events",80,0,40);
-
   TH1F *h_DeltaR_three =new TH1F("h_DeltaR_three",";#Delta R (dilepton-#gamma); Events",100,0,6);
   TH1F *h_DeltaR_dilep =new TH1F("h_DeltaR_dilep",";#Delta R (l1-l2); Events",100,0,6);
-
   TH1F *h_m_three =new TH1F("h_m_three",";Mass Three Body(GeV); Events",75,40,190);
   TH1F *h_m_three_cut =new TH1F("h_m_three_cut",";Mass Three Body(GeV); Events",75,40,190);
-
   TH1F *h_DeltaR_three_cut =new TH1F("h_DeltaR_three_cut",";#Delta R (dilepton-#gamma); Events",100,0,6);
   TH1F *h_DeltaR_dilep_cut =new TH1F("h_DeltaR_dilep_cut",";#Delta R (l1-l2); Events",100,0,6);
-
   TH2F *h2_Deltar3_2mass = new TH2F("h2_Deltar3_2mass",";#Delta R (dilepton-#gamma); M(ll)(GeV)",100,0,6,100,0,20);
   TH2F *h2_Deltar3_3mass = new TH2F("h2_Deltar3_3mass",";#Delta R (dilepton-#gamma);3 Body Mass (GeV)",100,0,6,130,50,180);
   TH2F *h2_Deltar2_2mass = new TH2F("h2_Deltar2_2mass",";#Delta R (l1-l2);M(ll)(GeV)",100,0,1,100,0,20);
@@ -50,6 +48,26 @@ void loop(){
   TH2F *h2_ptlow_pthigh = new TH2F("h2_ptlow_pthigh",";pt low(GeV); pt high(GeV)",100,0,100,100,0,100);
   TH2F *h2_etgamma_3mass = new TH2F("h2_etgamma_3mass",";Et(#gamma)(GeV); 3 Body Mass (GeV)",100,0,100,130,50,180);
   TH2F *h2_ptbalance = new TH2F("h2_ptbalance",";pt balance (GeV); 3 Body Mass(GeV)",200,-100,100,130,50,180);
+
+  //Total Histograms
+  
+  TH1F *tot_h_m_dilep =new TH1F("tot_h_m_dilep",";Mass Dilep(GeV); Events",120,0,60);
+  TH1F *tot_h_m_dilep_cut =new TH1F("tot_h_m_dilep_cut",";Mass Dilep(GeV); Events",80,0,40);
+  TH1F *tot_h_DeltaR_three =new TH1F("tot_h_DeltaR_three",";#Delta R (dilepton-#gamma); Events",100,0,6);
+  TH1F *tot_h_DeltaR_dilep =new TH1F("tot_h_DeltaR_dilep",";#Delta R (l1-l2); Events",100,0,6);
+  TH1F *tot_h_m_three =new TH1F("tot_h_m_three",";Mass Three Body(GeV); Events",75,40,190);
+  TH1F *tot_h_m_three_cut =new TH1F("tot_h_m_three_cut",";Mass Three Body(GeV); Events",75,40,190);
+  TH1F *tot_h_DeltaR_three_cut =new TH1F("tot_h_DeltaR_three_cut",";#Delta R (dilepton-#gamma); Events",100,0,6);
+  TH1F *tot_h_DeltaR_dilep_cut =new TH1F("tot_h_DeltaR_dilep_cut",";#Delta R (l1-l2); Events",100,0,6);
+  TH2F *tot_h2_Deltar3_2mass = new TH2F("tot_h2_Deltar3_2mass",";#Delta R (dilepton-#gamma); M(ll)(GeV)",100,0,6,100,0,20);
+  TH2F *tot_h2_Deltar3_3mass = new TH2F("tot_h2_Deltar3_3mass",";#Delta R (dilepton-#gamma);3 Body Mass (GeV)",100,0,6,130,50,180);
+  TH2F *tot_h2_Deltar2_2mass = new TH2F("tot_h2_Deltar2_2mass",";#Delta R (l1-l2);M(ll)(GeV)",100,0,1,100,0,20);
+  TH2F *tot_h2_Deltar2_3mass = new TH2F("tot_h2_Deltar2_3mass",";#Delta R (l1-l2);3 Body Mass (GeV)",100,0,1,130,50,180);
+  TH2F *tot_h2_2mass_3mass = new TH2F("tot_h2_2mass_3mass",";M(ll)(GeV);3 Body Mass (GeV)",20,0,20,130,50,180);
+  TH2F *tot_h2_ptlow_pthigh = new TH2F("tot_h2_ptlow_pthigh",";pt low(GeV); pt high(GeV)",100,0,100,100,0,100);
+  TH2F *tot_h2_etgamma_3mass = new TH2F("tot_h2_etgamma_3mass",";Et(#gamma)(GeV); 3 Body Mass (GeV)",100,0,100,130,50,180);
+  TH2F *tot_h2_ptbalance = new TH2F("tot_h2_ptbalance",";pt balance (GeV); 3 Body Mass(GeV)",200,-100,100,130,50,180);
+
 
   Int_t nentries = (Int_t)t1->GetEntries();
   
@@ -82,6 +100,19 @@ void loop(){
 
     cout<<"entrada:"<<i<<endl;
 
+    tot_h_m_three_cut->Fill(pthree.Mag());
+    tot_h_m_dilep_cut->Fill(pdi.Mag());
+    tot_h_DeltaR_three_cut->Fill(pdi.DeltaR(p5));
+    tot_h_DeltaR_dilep_cut->Fill(p3.DeltaR(p4));
+    tot_h2_Deltar3_3mass->Fill(pdi.DeltaR(p5),pthree.Mag());
+    tot_h2_Deltar3_2mass->Fill(pdi.DeltaR(p5),pdi.Mag());
+    tot_h2_Deltar2_3mass->Fill(p3.DeltaR(p4),pthree.Mag());
+    tot_h2_Deltar2_2mass->Fill(p3.DeltaR(p4),pdi.Mag());
+    tot_h2_2mass_3mass->Fill(pdi.Mag(),pthree.Mag());
+    tot_h2_etgamma_3mass->Fill(p5.Et(),pthree.Mag());
+    tot_h2_ptlow_pthigh->Fill(low,high);
+    tot_h2_ptbalance->Fill(Delta_pt,pthree.Mag());
+    
     if(low>7){
       if(high>25){
 	if(p5.Et()>15.0){
@@ -120,13 +151,10 @@ void loop(){
   h_m_dilep_cut->Write();
   h_m_three->Write();
   h_m_three_cut->Write();
-
   h_DeltaR_three->Write();
   h_DeltaR_dilep->Write();
   h_DeltaR_three_cut->Write();
   h_DeltaR_dilep_cut->Write();
-
-
   h2_Deltar3_3mass->Write() ;
   h2_Deltar3_2mass->Write() ;
   h2_Deltar2_3mass->Write() ;
@@ -135,6 +163,24 @@ void loop(){
   h2_etgamma_3mass->Write();
   h2_ptlow_pthigh->Write();
   h2_ptbalance->Write();
+
+  tot_h_m_dilep->Write();
+  tot_h_m_dilep_cut->Write();
+  tot_h_m_three->Write();
+  tot_h_m_three_cut->Write();
+  tot_h_DeltaR_three->Write();
+  tot_h_DeltaR_dilep->Write();
+  tot_h_DeltaR_three_cut->Write();
+  tot_h_DeltaR_dilep_cut->Write();
+  tot_h2_Deltar3_3mass->Write() ;
+  tot_h2_Deltar3_2mass->Write() ;
+  tot_h2_Deltar2_3mass->Write() ;
+  tot_h2_Deltar2_2mass->Write() ;
+  tot_h2_2mass_3mass->Write();
+  tot_h2_etgamma_3mass->Write();
+  tot_h2_ptlow_pthigh->Write();
+  tot_h2_ptbalance->Write();
+
 
   Output_file_1->Close();
 
